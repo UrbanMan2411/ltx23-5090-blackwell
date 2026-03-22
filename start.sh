@@ -2,7 +2,12 @@
 set -e
 
 source /opt/venv/bin/activate
-
+# =========================
+# Pre-install critical deps for LTX / RES4LYF
+# =========================
+pip install --no-cache-dir --upgrade pip
+pip install --no-cache-dir xformers || true
+pip install --no-cache-dir triton || true
 WORKDIR=/workspace
 COMFY_RUNTIME=/workspace/ComfyUI
 COMFY_BUILD=/comfy-build
@@ -43,14 +48,22 @@ install_custom_node() {
   local folder_name="$2"
 
   cd "$CUSTOM_NODES"
+
   if [ ! -d "$folder_name" ]; then
-    git clone "$repo_url" "$folder_name" || true
+    git clone --depth 1 "$repo_url" "$folder_name" || true
   fi
 
+  # Жёсткая переустановка зависимостей
   if [ -f "$CUSTOM_NODES/$folder_name/requirements.txt" ]; then
-    cd "$CUSTOM_NODES/$folder_name"
-    pip install --no-cache-dir -r requirements.txt || true
+    pip install --no-cache-dir --upgrade pip
+    pip install --no-cache-dir -r "$CUSTOM_NODES/$folder_name/requirements.txt" || true
   fi
+
+  # Проверка импорта
+  python - <<EOF || true
+import sys
+sys.path.append("$CUSTOM_NODES/$folder_name")
+EOF
 
   cd "$COMFY_RUNTIME"
 }
