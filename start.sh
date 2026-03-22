@@ -152,4 +152,4 @@ jupyter lab \
 # =========================
 # IMPORTANT: never import torch before this
 
-python main.py --listen 0.0.0.0 --port 3000 --gpu-only
+python main.py --listen 0.0.0.0 --port 3000 --gpu-only --enable-manager
