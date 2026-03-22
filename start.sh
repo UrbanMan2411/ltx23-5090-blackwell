@@ -51,7 +51,7 @@ download_if_missing \
 # =========================
 
 download_if_missing \
-"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/text_encoders/gemma_3_12B_it_fp4_mixed.safetensors" \
+"https://huggingface.co/Comfy-Org/ltx-2/resolve/main/split_files/text_encoders/gemma_3_12B_it_fp4_mixed.safetensors" \
 "$COMFY_RUNTIME/models/text_encoders" \
 "gemma_3_12B_it_fp4_mixed.safetensors"
 
