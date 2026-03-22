@@ -59,6 +59,7 @@ install_custom_node "https://github.com/ltdrdata/ComfyUI-Manager.git" "ComfyUI-M
 install_custom_node "https://github.com/Fannovel16/comfyui_controlnet_aux.git" "comfyui_controlnet_aux"
 install_custom_node "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git" "ComfyUI-VideoHelperSuite"
 install_custom_node "https://github.com/kijai/ComfyUI-LTXVideo.git" "ComfyUI-LTXVideo"
+install_custom_node "https://github.com/kijai/ComfyUI-KJNodes.git" "ComfyUI-KJNodes"
 install_custom_node "https://github.com/rgthree/rgthree-comfy.git" "rgthree-comfy"
 install_custom_node "https://github.com/RES4LYF/RES4LYF.git" "RES4LYF"
 install_custom_node "https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI.git" "ComfyUI_NVIDIA_RTX_Nodes"
