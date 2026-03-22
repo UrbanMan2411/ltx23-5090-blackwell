@@ -157,5 +157,12 @@ jupyter lab \
 # Launch ComfyUI
 # =========================
 # IMPORTANT: never import torch before this
+# =========================
+# Final dependency check
+# =========================
+pip install --no-cache-dir xformers triton sageattention einops kornia
+
+echo "Waiting 5 seconds before launch..."
+sleep 5
 
 python main.py --listen 0.0.0.0 --port 3000 --gpu-only --enable-manager
