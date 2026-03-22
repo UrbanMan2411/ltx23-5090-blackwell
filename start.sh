@@ -50,20 +50,12 @@ install_custom_node() {
   cd "$CUSTOM_NODES"
 
   if [ ! -d "$folder_name" ]; then
-    git clone --depth 1 "$repo_url" "$folder_name" || true
+    git clone --depth 1 "$repo_url" "$folder_name"
   fi
 
-  # Жёсткая переустановка зависимостей
   if [ -f "$CUSTOM_NODES/$folder_name/requirements.txt" ]; then
-    pip install --no-cache-dir --upgrade pip
-    pip install --no-cache-dir -r "$CUSTOM_NODES/$folder_name/requirements.txt" || true
+    pip install --no-cache-dir -r "$CUSTOM_NODES/$folder_name/requirements.txt"
   fi
-
-  # Проверка импорта
-  python - <<EOF || true
-import sys
-sys.path.append("$CUSTOM_NODES/$folder_name")
-EOF
 
   cd "$COMFY_RUNTIME"
 }
