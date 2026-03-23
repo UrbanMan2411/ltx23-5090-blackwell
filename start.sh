@@ -94,5 +94,4 @@ cd "$COMFY_DIR"
 python main.py \
   --listen 0.0.0.0 \
   --port 3000 \
-  --gpu-only \
   --lowvram
