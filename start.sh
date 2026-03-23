@@ -111,4 +111,4 @@ cd "$COMFY_DIR"
 pip install -U --pre comfyui-manager
 
 cd "$COMFY_DIR"
-python main.py --listen 0.0.0.0 --port 3000 --gpu-only --enable-manager
+python main.py --listen 0.0.0.0 --port 3000 --gpu-only --enable-manager --max-batch-size 2
