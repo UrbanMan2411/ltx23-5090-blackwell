@@ -51,11 +51,12 @@ install_node "https://github.com/ltdrdata/ComfyUI-Manager.git" "ComfyUI-Manager"
 
 # Workflow nodes
 install_node "https://github.com/Fannovel16/comfyui_controlnet_aux.git" "comfyui_controlnet_aux"
-install_node "https://github.com/kijai/ComfyUI-LTXVideo.git" "ComfyUI-LTXVideo"
 install_node "https://github.com/rgthree/rgthree-comfy.git" "rgthree-comfy"
 install_node "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git" "ComfyUI-VideoHelperSuite"
 install_node "https://github.com/ClownsharkBatwing/RES4LYF.git" "RES4LYF"
 install_node "https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI.git" "Nvidia_RTX_Nodes_ComfyUI"
+install_node "https://github.com/kijai/ComfyUI-KJNodes.git" "ComfyUI-KJNodes"
+install_node "https://github.com/Lightricks/ComfyUI-LTXVideo.git" "ComfyUI-LTXVideo"
 
 mkdir -p "$COMFY_DIR/models/checkpoints" \
          "$COMFY_DIR/models/diffusion_models" \
