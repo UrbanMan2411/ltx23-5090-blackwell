@@ -37,7 +37,7 @@ RUN python3 -m venv $VIRTUAL_ENV && \
     pip install --upgrade pip setuptools wheel
 
 # ---------------------------------------------------------
-# PyTorch Nightly (Blackwell safe, CUDA 12.8)
+# PyTorch Nightly (Blackwell safe CUDA 12.8)
 # ---------------------------------------------------------
 
 RUN pip install --pre torch torchvision torchaudio \
@@ -56,12 +56,14 @@ RUN pip install \
     GitPython rembg imageio-ffmpeg matplotlib pandas
 
 # ---------------------------------------------------------
-# NVIDIA Video Effects Python binding
+# NVIDIA Video Effects SDK (официальный runtime)
 # ---------------------------------------------------------
 
-RUN pip install nvvfx
+RUN python -m pip install -U --no-build-isolation \
+    nvidia-vfx \
+    --index-url https://pypi.nvidia.com
 
-# Make sure NVIDIA runtime libs are visible
+# Ensure NVIDIA driver libs visible
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 # ---------------------------------------------------------
@@ -73,7 +75,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /comfy-build && \
     pip install -r requirements.txt
 
 # ---------------------------------------------------------
-# Start script
+# Copy start script
 # ---------------------------------------------------------
 
 COPY start.sh /start.sh
