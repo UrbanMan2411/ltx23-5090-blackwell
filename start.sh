@@ -52,6 +52,7 @@ install_custom_node "https://github.com/rgthree/rgthree-comfy.git" "rgthree-comf
 install_custom_node "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git" "ComfyUI-VideoHelperSuite"
 install_custom_node "https://github.com/ClownsharkBatwing/RES4LYF.git" "RES4LYF"
 install_custom_node "https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI.git" "ComfyUI_NVIDIA_RTX_Nodes"
+install_custom_node "https://github.com/kijai/ComfyUI-KJNodes.git" "comfyui-kjnodes"
 
 echo "Applying ONNX GPU fix..."
 
