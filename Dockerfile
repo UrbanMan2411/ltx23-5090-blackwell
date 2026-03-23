@@ -1,4 +1,4 @@
-# RTX 5090 / Blackwell / Video-oriented
+# RTX 5090 / Blackwell / NvVFX-ready build
 FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -7,34 +7,67 @@ ENV DEBIAN_FRONTEND=noninteractive \
     VIRTUAL_ENV=/opt/venv \
     PATH="/opt/venv/bin:$PATH"
 
+# -------------------------------------------------
+# System packages
+# -------------------------------------------------
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && apt-get install -y --no-install-recommends \
-    python3.11 python3.11-venv python3.11-dev \
-    git wget curl aria2 ffmpeg ca-certificates rsync \
+    software-properties-common \
+    git wget curl aria2 ffmpeg rsync \
     build-essential ninja-build pkg-config \
-    libgl1-mesa-glx libglib2.0-0 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
+    libvulkan1 \
+    libnvcuvid1 \
+    libnvidia-encode1 \
+    libnvidia-decode1 \
+    ca-certificates \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update && apt-get install -y \
+    python3.11 python3.11-venv python3.11-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
 
+# -------------------------------------------------
+# Python venv
+# -------------------------------------------------
+
 RUN python3 -m venv $VIRTUAL_ENV && \
     pip install --upgrade pip setuptools wheel
 
-# Torch Nightly for CUDA 12.8 (Blackwell safe path)
+# -------------------------------------------------
+# PyTorch Nightly (Blackwell safe)
+# -------------------------------------------------
+
 RUN pip install --pre torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/nightly/cu128
 
+# -------------------------------------------------
+# Core dependencies
+# -------------------------------------------------
+
 RUN pip install \
     "numpy<2" pillow scipy tqdm psutil requests pyyaml \
-    safetensors transformers accelerate einops sentencepiece \
+    huggingface_hub safetensors transformers accelerate \
+    einops sentencepiece \
     opencv-python kornia spandrel soundfile \
-    onnxruntime-gpu jupyterlab matplotlib pandas \
-    huggingface_hub
+    jupyterlab onnxruntime-gpu \
+    GitPython rembg imageio-ffmpeg matplotlib pandas
 
-# ComfyUI build
+# -------------------------------------------------
+# NVIDIA Video Effects (NvVFX)
+# -------------------------------------------------
+
+RUN pip install nvvfx
+
+# Ensure NVIDIA libs visible
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+# -------------------------------------------------
+# Build ComfyUI inside image
+# -------------------------------------------------
+
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /comfy-build && \
     cd /comfy-build && \
     pip install -r requirements.txt
