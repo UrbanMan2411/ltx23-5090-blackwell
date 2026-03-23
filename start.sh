@@ -107,4 +107,7 @@ jupyter lab \
   > /workspace/jupyter.log 2>&1 &
 
 cd "$COMFY_DIR"
-python main.py --listen 0.0.0.0 --port 3000 --gpu-only
+pip install -U --pre comfyui-manager
+
+cd "$COMFY_DIR"
+python main.py --listen 0.0.0.0 --port 3000 --gpu-only --enable-manager
